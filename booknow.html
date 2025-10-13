@@ -641,40 +641,39 @@
                 // Get all form data
                 const guestCount = document.getElementById('guestCount').value;
                 const checkOutDate = document.getElementById('checkOut').value;
-                const packagePrice = parseFloat(selectedPackagePriceInput.value);
-                const packageTotal = packagePrice * guestCount;
                 const airportCount = document.getElementById('airportCount').value;
                 const snapCount = document.getElementById('snapCount').value;
                 const berberCount = document.getElementById('berberCount').value;
                 const message = document.getElementById('message').value.trim();
+                const packagePrice = parseFloat(selectedPackagePriceInput.value);
+                const packageNights = selectedPackageNightsInput.value;
                 
                 // Format dates for message
                 const checkInFormatted = checkInDate ? new Date(checkInDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Not selected';
                 const checkOutFormatted = checkOutDate ? new Date(checkOutDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Not selected';
                 
-                // Calculate extras totals
+                // Calculate totals
+                const packageTotal = packagePrice * guestCount;
                 const airportTotal = 40 * airportCount;
                 const snapTotal = 50 * snapCount;
                 const berberTotal = 30 * berberCount;
                 const extrasTotal = airportTotal + snapTotal + berberTotal;
                 const grandTotal = packageTotal + extrasTotal;
                 
-                // Build WhatsApp message with detailed package pricing
+                // Build WhatsApp message with detailed package info
                 let whatsappMessage = `*NEW HOSTEL BOOKING REQUEST*\n\n`;
                 whatsappMessage += `*Full Name:* ${fullName}\n`;
                 whatsappMessage += `*Phone:* ${phone}\n\n`;
-                whatsappMessage += `*Booking Details:*\n`;
+                whatsappMessage += `*Selected Package:*\n`;
                 whatsappMessage += `- Package: ${packageName}\n`;
+                whatsappMessage += `- Duration: ${packageNights} nights\n`;
                 whatsappMessage += `- Guests: ${guestCount}\n`;
+                whatsappMessage += `- Price per guest: €${packagePrice.toFixed(2)}\n`;
+                whatsappMessage += `- Total package cost: €${packageTotal.toFixed(2)}\n\n`;
+                whatsappMessage += `*Booking Dates:*\n`;
                 whatsappMessage += `- Check-in: ${checkInFormatted}\n`;
                 whatsappMessage += `- Check-out: ${checkOutFormatted}\n\n`;
                 
-                // Add detailed package pricing
-                whatsappMessage += `*Package Pricing:*\n`;
-                whatsappMessage += `- Price per person: €${packagePrice.toFixed(2)}\n`;
-                whatsappMessage += `- Total for ${guestCount} guest${guestCount > 1 ? 's' : ''}: €${packageTotal.toFixed(2)}\n\n`;
-                
-                // Add extra options if any selected
                 if (airportCount > 0 || snapCount > 0 || berberCount > 0) {
                     whatsappMessage += `*Extra Options:*\n`;
                     if (airportCount > 0) whatsappMessage += `- Airport Shuttle (${airportCount} guest${airportCount > 1 ? 's' : ''}): €${airportTotal.toFixed(2)}\n`;
@@ -683,15 +682,10 @@
                     whatsappMessage += `\n`;
                 }
                 
-                // Show subtotal and total
-                if (extrasTotal > 0) {
-                    whatsappMessage += `*Subtotal (Package):* €${packageTotal.toFixed(2)}\n`;
-                    whatsappMessage += `*Extras Total:* €${extrasTotal.toFixed(2)}\n`;
-                }
-                whatsappMessage += `*TOTAL AMOUNT:* €${grandTotal.toFixed(2)}\n\n`;
+                whatsappMessage += `*TOTAL AMOUNT: €${grandTotal.toFixed(2)}*\n\n`;
                 
                 if (message) {
-                    whatsappMessage += `*Message:* ${message}\n\n`;
+                    whatsappMessage += `*Additional Message:* ${message}\n\n`;
                 }
                 
                 whatsappMessage += `Please confirm this booking. Thank you!`;
