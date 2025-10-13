@@ -157,6 +157,11 @@
         .whatsapp-btn i {
             margin-right: 8px;
         }
+        .auto-calc-note {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -185,7 +190,7 @@
                                 <label class="form-label">Select Package <span class="text-danger">*</span></label>
                                 <div class="row">
                                     <div class="col-md-4 mb-3">
-                                        <div class="package-card p-3 rounded h-100" data-package="7" data-price="850" data-name="7 Nights Package">
+                                        <div class="package-card p-3 rounded h-100" data-package="7" data-price="850" data-name="7 Nights Package" data-nights="7">
                                             <h5 class="mb-2">7 Nights</h5>
                                             <p class="mb-1">8 nights stay</p>
                                             <div class="price-tag">€850</div>
@@ -193,7 +198,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <div class="package-card p-3 rounded h-100" data-package="10" data-price="950" data-name="10 Nights Package">
+                                        <div class="package-card p-3 rounded h-100" data-package="10" data-price="950" data-name="10 Nights Package" data-nights="10">
                                             <h5 class="mb-2">10 Nights</h5>
                                             <p class="mb-1">11 nights stay</p>
                                             <div class="price-tag">€950</div>
@@ -201,7 +206,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <div class="package-card p-3 rounded h-100" data-package="15" data-price="1200" data-name="15 Nights Package">
+                                        <div class="package-card p-3 rounded h-100" data-package="15" data-price="1200" data-name="15 Nights Package" data-nights="15">
                                             <h5 class="mb-2">15 Nights</h5>
                                             <p class="mb-1">16 nights stay</p>
                                             <div class="price-tag">€1200</div>
@@ -212,6 +217,7 @@
                                 <input type="hidden" id="selectedPackage" required>
                                 <input type="hidden" id="selectedPackageName">
                                 <input type="hidden" id="selectedPackagePrice">
+                                <input type="hidden" id="selectedPackageNights">
                             </div>
                             
                             <!-- Dates -->
@@ -219,10 +225,11 @@
                                 <div class="col-md-6">
                                     <label for="checkIn" class="form-label">Check-in Date <span class="text-danger">*</span></label>
                                     <input type="date" class="form-control" id="checkIn" required>
+                                    <div class="auto-calc-note">Check-out will be calculated automatically</div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="checkOut" class="form-label">Check-out Date <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" id="checkOut" required>
+                                    <label for="checkOut" class="form-label">Check-out Date</label>
+                                    <input type="date" class="form-control" id="checkOut" readonly>
                                 </div>
                             </div>
                             
@@ -351,6 +358,7 @@
             const selectedPackageInput = document.getElementById('selectedPackage');
             const selectedPackageNameInput = document.getElementById('selectedPackageName');
             const selectedPackagePriceInput = document.getElementById('selectedPackagePrice');
+            const selectedPackageNightsInput = document.getElementById('selectedPackageNights');
             
             packageCards.forEach(card => {
                 card.addEventListener('click', function() {
@@ -362,7 +370,9 @@
                     selectedPackageInput.value = this.getAttribute('data-package');
                     selectedPackageNameInput.value = this.getAttribute('data-name');
                     selectedPackagePriceInput.value = this.getAttribute('data-price');
+                    selectedPackageNightsInput.value = this.getAttribute('data-nights');
                     updateInvoice();
+                    calculateCheckOut(); // Recalculate check-out when package changes
                 });
             });
             
@@ -446,17 +456,47 @@
                 document.getElementById(extraType + 'Total').textContent = '€' + total.toFixed(2);
             }
             
-            // Date validation
+            // Date inputs
             const checkIn = document.getElementById('checkIn');
             const checkOut = document.getElementById('checkOut');
             
             // Set min date to today
             const today = new Date().toISOString().split('T')[0];
             checkIn.min = today;
-            checkOut.min = today;
             
-            checkIn.addEventListener('change', updateInvoice);
-            checkOut.addEventListener('change', updateInvoice);
+            // Calculate check-out date when check-in changes
+            checkIn.addEventListener('change', calculateCheckOut);
+            
+            // Function to calculate check-out date
+            function calculateCheckOut() {
+                const checkInDate = checkIn.value;
+                const packageNights = selectedPackageNightsInput.value;
+                
+                // If no check-in date or package selected, clear check-out
+                if (!checkInDate || !packageNights) {
+                    checkOut.value = '';
+                    updateInvoice();
+                    return;
+                }
+                
+                // Parse check-in date
+                const checkInParsed = new Date(checkInDate);
+                
+                // Add nights to check-in date to get check-out
+                // Note: Check-out is the day after the last night
+                const checkOutDate = new Date(checkInParsed);
+                checkOutDate.setDate(checkInParsed.getDate() + parseInt(packageNights));
+                
+                // Format as YYYY-MM-DD
+                const year = checkOutDate.getFullYear();
+                const month = String(checkOutDate.getMonth() + 1).padStart(2, '0');
+                const day = String(checkOutDate.getDate()).padStart(2, '0');
+                const formattedCheckOut = `${year}-${month}-${day}`;
+                
+                // Set check-out date
+                checkOut.value = formattedCheckOut;
+                updateInvoice();
+            }
             
             // Initialize extras max
             updateExtrasMax();
@@ -576,6 +616,7 @@
                 const fullName = document.getElementById('fullName').value.trim();
                 const phone = document.getElementById('phone').value.trim();
                 const packageName = selectedPackageNameInput.value;
+                const checkInDate = checkIn.value;
                 
                 if (!fullName) {
                     alert('Please enter your full name');
@@ -592,18 +633,22 @@
                     return;
                 }
                 
+                if (!checkInDate) {
+                    alert('Please select a check-in date');
+                    return;
+                }
+                
                 // Get all form data
                 const guestCount = document.getElementById('guestCount').value;
-                const checkIn = document.getElementById('checkIn').value;
-                const checkOut = document.getElementById('checkOut').value;
+                const checkOutDate = document.getElementById('checkOut').value;
                 const airportCount = document.getElementById('airportCount').value;
                 const snapCount = document.getElementById('snapCount').value;
                 const berberCount = document.getElementById('berberCount').value;
                 const message = document.getElementById('message').value.trim();
                 
                 // Format dates for message
-                const checkInFormatted = checkIn ? new Date(checkIn).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Not selected';
-                const checkOutFormatted = checkOut ? new Date(checkOut).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Not selected';
+                const checkInFormatted = checkInDate ? new Date(checkInDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Not selected';
+                const checkOutFormatted = checkOutDate ? new Date(checkOutDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Not selected';
                 
                 // Calculate totals
                 const packagePrice = parseFloat(selectedPackagePriceInput.value);
