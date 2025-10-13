@@ -1,285 +1,581 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Book Your Hostel Stay</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      background-color: #f8f9fa;
-      font-family: 'Poppins', sans-serif;
-    }
-    .main-container {
-      max-width: 1100px;
-      margin: 40px auto;
-    }
-    .booking-card, .invoice-card {
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      padding: 30px;
-      height: 100%;
-    }
-    .invoice-card h3 {
-        border-bottom: 1px solid #eee;
-        padding-bottom: 15px;
-        margin-bottom: 20px;
-    }
-    .form-label {
-      font-weight: 600;
-    }
-    .invoice-placeholder {
-        color: #888;
-        text-align: center;
-        padding: 50px 20px;
-        border: 2px dashed #e0e0e0;
-        border-radius: 10px;
-    }
-    .invoice-total {
-        font-weight: 600;
-        font-size: 1.2rem;
-    }
-    .activity-row {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-    .activity-row .form-check {
-        padding-left: 0;
-    }
-    .activity-guests-input {
-        width: 80px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Booking - Sahara Oasis Hostel</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .booking-card {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            background: white;
+        }
+        .header-bg {
+            background: linear-gradient(120deg, #4a69bd 0%, #1e3c72 100%);
+            color: white;
+            padding: 25px 0;
+        }
+        .package-card {
+            transition: all 0.3s ease;
+            border: 2px solid #e9ecef;
+            cursor: pointer;
+            height: 100%;
+        }
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-color: #4a69bd;
+        }
+        .package-card.selected {
+            border-color: #4a69bd;
+            background-color: #f0f4ff;
+        }
+        .extra-option {
+            transition: all 0.2s ease;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+        .extra-option:hover {
+            background-color: #f8f9fa;
+        }
+        .price-tag {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1e3c72;
+        }
+        .btn-primary {
+            background: linear-gradient(120deg, #4a69bd 0%, #1e3c72 100%);
+            border: none;
+            padding: 10px 25px;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(120deg, #3a59ad 0%, #1a3565 100%);
+        }
+        .guest-counter {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .guest-counter button {
+            background: #f8f9fa;
+            border: none;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+        }
+        .guest-counter input {
+            width: 50px;
+            text-align: center;
+            border: none;
+            height: 40px;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #6c757d;
+        }
+        
+        /* Invoice Styles */
+        .invoice-card {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: white;
+            height: 100%;
+            position: sticky;
+            top: 20px;
+        }
+        .invoice-header {
+            background: linear-gradient(120deg, #4a69bd 0%, #1e3c72 100%);
+            color: white;
+            padding: 20px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .invoice-body {
+            padding: 20px;
+        }
+        .invoice-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #e9ecef;
+        }
+        .invoice-total {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #4a69bd;
+        }
+        .no-selection {
+            text-align: center;
+            color: #6c757d;
+            padding: 30px 0;
+            font-style: italic;
+        }
+        .package-name {
+            font-weight: 600;
+            color: #1e3c72;
+        }
+        .extra-name {
+            color: #495057;
+        }
+        .guest-name {
+            color: #6c757d;
+        }
+        .per-guest-note {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-
-  <div class="container main-container">
-    <div class="row g-4">
-      <div class="col-lg-7">
-        <div class="booking-card">
-          <h2 class="text-center mb-4">Book Your Hostel Stay</h2>
-          
-          <form id="bookingForm">
-            <div class="mb-3">
-              <label for="name" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="name" placeholder="John Doe" required>
-            </div>
-
-            <div class="mb-3">
-              <label for="pack" class="form-label">Type of Pack</label>
-              <select class="form-select" id="pack" required>
-                <option value="" data-name="">Select your package</option>
-                <option value="850" data-name="7 Nights Pack">7 Nights - 850€</option>
-                <option value="950" data-name="10 Nights Pack">10 Nights - 950€</option>
-                <option value="1200" data-name="15 Nights Pack">15 Nights - 1200€</option>
-              </select>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="checkin" class="form-label">Day of Check-in</label>
-                <input type="date" class="form-control" id="checkin" required>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="checkout" class="form-label">Day of Check-out</label>
-                <input type="date" class="form-control" id="checkout" required>
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <label for="guests" class="form-label">Number of Guests (max 5)</label>
-              <input type="number" class="form-control" id="guests" min="1" max="5" value="1" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Add Extra Options</label><br>
-                <div class="activity-row mb-2">
-                    <div class="form-check">
-                        <input class="form-check-input activity-checkbox" type="checkbox" id="shuttle" data-price="40" data-name="Airport Shuttle">
-                        <label class="form-check-label" for="shuttle">Airport Shuttle (40€)</label>
-                    </div>
-                    <div class="activity-guests-container d-none">
-                        <input type="number" class="form-control form-control-sm activity-guests-input" id="shuttle-guests" value="1" min="1">
-                    </div>
-                </div>
-                <div class="activity-row mb-2">
-                    <div class="form-check">
-                        <input class="form-check-input activity-checkbox" type="checkbox" id="story" data-price="50" data-name="Snap Your Story">
-                        <label class="form-check-label" for="story">Snap Your Story (50€)</label>
-                    </div>
-                    <div class="activity-guests-container d-none">
-                        <input type="number" class="form-control form-control-sm activity-guests-input" id="story-guests" value="1" min="1">
-                    </div>
-                </div>
-                <div class="activity-row">
-                    <div class="form-check">
-                        <input class="form-check-input activity-checkbox" type="checkbox" id="berber" data-price="30" data-name="Berber Experience">
-                        <label class="form-check-label" for="berber">Berber Experience (30€)</label>
-                    </div>
-                    <div class="activity-guests-container d-none">
-                        <input type="number" class="form-control form-control-sm activity-guests-input" id="berber-guests" value="1" min="1">
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-3">
-              <label for="phone" class="form-label">Phone Number</label>
-              <input type="tel" class="form-control" id="phone" placeholder="+212 612 345 678" required>
-            </div>
-
-            <div class="mb-3">
-              <label for="message" class="form-label">Write a Message (optional)</label>
-              <textarea class="form-control" id="message" rows="3" placeholder="Any special requests?"></textarea>
-            </div>
-
-            <div class="d-grid mt-4">
-              <button type="submit" class="btn btn-primary btn-lg">Confirm Booking</button>
-            </div>
-          </form>
+    <div class="container py-4">
+        <div class="header-bg text-center mb-4">
+            <h1 class="display-5 fw-bold">Sahara Oasis Hostel</h1>
+            <p class="lead">Book your desert adventure</p>
         </div>
-      </div>
 
-      <div class="col-lg-5">
-        <div class="invoice-card">
-          <h3 class="text-center">Booking Summary</h3>
-          <div id="invoice-placeholder" class="invoice-placeholder">
-            <p class="mb-0">Your selections will appear here.</p>
-          </div>
-          <div id="invoice-content" class="d-none">
-            <ul class="list-group list-group-flush" id="invoiceItems">
-              </ul>
-            <hr>
-            <div class="d-flex justify-content-between align-items-center invoice-total mt-3">
-              <span>Total:</span>
-              <span id="invoiceTotal">0€</span>
+        <div class="row">
+            <!-- Booking Form -->
+            <div class="col-lg-7 mb-4">
+                <div class="booking-card">
+                    <div class="card-body p-4">
+                        <h2 class="card-title mb-4">Booking Details</h2>
+                        
+                        <form id="bookingForm">
+                            <!-- Full Name -->
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Full Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
+                            </div>
+                            
+                            <!-- Package Selection -->
+                            <div class="mb-4">
+                                <label class="form-label">Select Package <span class="text-danger">*</span></label>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <div class="package-card p-3 rounded h-100" data-package="7" data-price="850" data-name="7 Nights Package">
+                                            <h5 class="mb-2">7 Nights</h5>
+                                            <p class="mb-1">8 nights stay</p>
+                                            <div class="price-tag">€850</div>
+                                            <div class="per-guest-note">Price per person</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="package-card p-3 rounded h-100" data-package="10" data-price="950" data-name="10 Nights Package">
+                                            <h5 class="mb-2">10 Nights</h5>
+                                            <p class="mb-1">11 nights stay</p>
+                                            <div class="price-tag">€950</div>
+                                            <div class="per-guest-note">Price per person</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="package-card p-3 rounded h-100" data-package="15" data-price="1200" data-name="15 Nights Package">
+                                            <h5 class="mb-2">15 Nights</h5>
+                                            <p class="mb-1">16 nights stay</p>
+                                            <div class="price-tag">€1200</div>
+                                            <div class="per-guest-note">Price per person</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="selectedPackage" required>
+                                <input type="hidden" id="selectedPackageName">
+                                <input type="hidden" id="selectedPackagePrice">
+                            </div>
+                            
+                            <!-- Dates -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="checkIn" class="form-label">Check-in Date <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" id="checkIn" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="checkOut" class="form-label">Check-out Date <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" id="checkOut" required>
+                                </div>
+                            </div>
+                            
+                            <!-- Number of Guests -->
+                            <div class="mb-3">
+                                <label class="form-label">Number of Guests (Max 5) <span class="text-danger">*</span></label>
+                                <div class="guest-counter">
+                                    <button type="button" id="decreaseGuests">-</button>
+                                    <input type="number" id="guestCount" min="1" max="5" value="1" readonly>
+                                    <button type="button" id="increaseGuests">+</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Extra Options -->
+                            <div class="mb-4">
+                                <label class="form-label">Extra Options (per person)</label>
+                                
+                                <div class="extra-option">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <div>
+                                            <strong>Airport Shuttle</strong> - €40 per person
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-3">Guests:</span>
+                                        <div class="guest-counter">
+                                            <button type="button" class="decrease-extra" data-extra="airport">-</button>
+                                            <input type="number" class="extra-count" id="airportCount" min="0" max="5" value="0" readonly data-extra="airport">
+                                            <button type="button" class="increase-extra" data-extra="airport">+</button>
+                                        </div>
+                                        <span class="ms-3 extra-total" id="airportTotal">€0</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="extra-option">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <div>
+                                            <strong>Snap Your Story</strong> - €50 per person
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-3">Guests:</span>
+                                        <div class="guest-counter">
+                                            <button type="button" class="decrease-extra" data-extra="snap">-</button>
+                                            <input type="number" class="extra-count" id="snapCount" min="0" max="5" value="0" readonly data-extra="snap">
+                                            <button type="button" class="increase-extra" data-extra="snap">+</button>
+                                        </div>
+                                        <span class="ms-3 extra-total" id="snapTotal">€0</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="extra-option">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <div>
+                                            <strong>Berber Experience</strong> - €30 per person
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-3">Guests:</span>
+                                        <div class="guest-counter">
+                                            <button type="button" class="decrease-extra" data-extra="berber">-</button>
+                                            <input type="number" class="extra-count" id="berberCount" min="0" max="5" value="0" readonly data-extra="berber">
+                                            <button type="button" class="increase-extra" data-extra="berber">+</button>
+                                        </div>
+                                        <span class="ms-3 extra-total" id="berberTotal">€0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Phone Number -->
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control" id="phone" placeholder="+1234567890" required>
+                            </div>
+                            
+                            <!-- Message -->
+                            <div class="mb-4">
+                                <label for="message" class="form-label">Message (Optional)</label>
+                                <textarea class="form-control" id="message" rows="3" placeholder="Any special requests or questions?"></textarea>
+                            </div>
+                            
+                            <!-- Submit Button -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Book Now</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-          </div>
+            
+            <!-- Invoice Section -->
+            <div class="col-lg-5">
+                <div class="invoice-card">
+                    <div class="invoice-header">
+                        <h3 class="mb-0">Your Booking Summary</h3>
+                    </div>
+                    <div class="invoice-body">
+                        <div id="invoiceContent">
+                            <div class="no-selection">
+                                <i class="bi bi-receipt-cutoff" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                                <p>Select a package to see your booking summary</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+        
+        <div class="footer">
+            <p class="mb-0">Sahara Oasis Hostel • Marrakech, Morocco</p>
+            <p class="mb-0">+212 524 123 456 • info@sahara-oasis.com</p>
+        </div>
     </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script>
-    const form = document.getElementById('bookingForm');
-    const mainGuestsInput = document.getElementById('guests');
-    const invoicePlaceholder = document.getElementById('invoice-placeholder');
-    const invoiceContent = document.getElementById('invoice-content');
-    const invoiceItemsEl = document.getElementById('invoiceItems');
-    const invoiceTotalEl = document.getElementById('invoiceTotal');
-    const activities = ['shuttle', 'story', 'berber'];
-
-    // Main event listener
-    form.addEventListener('change', (e) => {
-        // When a checkbox is changed, toggle the visibility of the number input
-        if (e.target.classList.contains('activity-checkbox')) {
-            toggleActivityInput(e.target.id);
-        }
-        updateInvoice();
-    });
-
-    // Listener to update max values for activities when main guest count changes
-    mainGuestsInput.addEventListener('input', () => {
-        updateActivityMaxGuests();
-        updateInvoice();
-    });
-
-    function toggleActivityInput(activityId) {
-        const checkbox = document.getElementById(activityId);
-        const container = document.getElementById(activityId + '-guests').parentElement;
-        if (checkbox.checked) {
-            container.classList.remove('d-none');
-        } else {
-            container.classList.add('d-none');
-        }
-    }
-
-    function updateActivityMaxGuests() {
-        const maxGuests = parseInt(mainGuestsInput.value) || 1;
-        activities.forEach(id => {
-            const activityInput = document.getElementById(id + '-guests');
-            activityInput.max = maxGuests;
-            // Prevent activity guests from exceeding new max
-            if (parseInt(activityInput.value) > maxGuests) {
-                activityInput.value = maxGuests;
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Package selection
+            const packageCards = document.querySelectorAll('.package-card');
+            const selectedPackageInput = document.getElementById('selectedPackage');
+            const selectedPackageNameInput = document.getElementById('selectedPackageName');
+            const selectedPackagePriceInput = document.getElementById('selectedPackagePrice');
+            
+            packageCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove selected class from all cards
+                    packageCards.forEach(c => c.classList.remove('selected'));
+                    // Add selected class to clicked card
+                    this.classList.add('selected');
+                    // Set the hidden input values
+                    selectedPackageInput.value = this.getAttribute('data-package');
+                    selectedPackageNameInput.value = this.getAttribute('data-name');
+                    selectedPackagePriceInput.value = this.getAttribute('data-price');
+                    updateInvoice();
+                });
+            });
+            
+            // Guest counter
+            const decreaseBtn = document.getElementById('decreaseGuests');
+            const increaseBtn = document.getElementById('increaseGuests');
+            const guestInput = document.getElementById('guestCount');
+            
+            decreaseBtn.addEventListener('click', function() {
+                let value = parseInt(guestInput.value);
+                if (value > 1) {
+                    guestInput.value = value - 1;
+                    updateExtrasMax();
+                    updateInvoice();
+                }
+            });
+            
+            increaseBtn.addEventListener('click', function() {
+                let value = parseInt(guestInput.value);
+                if (value < 5) {
+                    guestInput.value = value + 1;
+                    updateExtrasMax();
+                    updateInvoice();
+                }
+            });
+            
+            // Extra options counters
+            const decreaseExtraBtns = document.querySelectorAll('.decrease-extra');
+            const increaseExtraBtns = document.querySelectorAll('.increase-extra');
+            const extraCountInputs = document.querySelectorAll('.extra-count');
+            
+            // Update max for extras based on guest count
+            function updateExtrasMax() {
+                const maxGuests = parseInt(guestInput.value);
+                extraCountInputs.forEach(input => {
+                    input.max = maxGuests;
+                    if (parseInt(input.value) > maxGuests) {
+                        input.value = maxGuests;
+                    }
+                });
             }
+            
+            // Setup extra counters
+            decreaseExtraBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const extraType = this.getAttribute('data-extra');
+                    const input = document.getElementById(extraType + 'Count');
+                    let value = parseInt(input.value);
+                    if (value > 0) {
+                        input.value = value - 1;
+                        updateExtraTotal(extraType);
+                        updateInvoice();
+                    }
+                });
+            });
+            
+            increaseExtraBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const extraType = this.getAttribute('data-extra');
+                    const input = document.getElementById(extraType + 'Count');
+                    const max = parseInt(input.max);
+                    let value = parseInt(input.value);
+                    if (value < max) {
+                        input.value = value + 1;
+                        updateExtraTotal(extraType);
+                        updateInvoice();
+                    }
+                });
+            });
+            
+            // Update extra totals
+            function updateExtraTotal(extraType) {
+                const count = parseInt(document.getElementById(extraType + 'Count').value);
+                let price = 0;
+                
+                if (extraType === 'airport') price = 40;
+                else if (extraType === 'snap') price = 50;
+                else if (extraType === 'berber') price = 30;
+                
+                const total = count * price;
+                document.getElementById(extraType + 'Total').textContent = '€' + total.toFixed(2);
+            }
+            
+            // Date validation
+            const checkIn = document.getElementById('checkIn');
+            const checkOut = document.getElementById('checkOut');
+            
+            // Set min date to today
+            const today = new Date().toISOString().split('T')[0];
+            checkIn.min = today;
+            checkOut.min = today;
+            
+            checkIn.addEventListener('change', updateInvoice);
+            checkOut.addEventListener('change', updateInvoice);
+            
+            // Initialize extras max
+            updateExtrasMax();
+            
+            // Update invoice function
+            function updateInvoice() {
+                const packageName = selectedPackageNameInput.value;
+                const packagePrice = parseFloat(selectedPackagePriceInput.value);
+                const guestCount = parseInt(guestInput.value);
+                const checkInDate = checkIn.value;
+                const checkOutDate = checkOut.value;
+                
+                // Get extra counts
+                const airportCount = parseInt(document.getElementById('airportCount').value);
+                const snapCount = parseInt(document.getElementById('snapCount').value);
+                const berberCount = parseInt(document.getElementById('berberCount').value);
+                
+                // If no package selected, show default message
+                if (!packageName) {
+                    document.getElementById('invoiceContent').innerHTML = `
+                        <div class="no-selection">
+                            <i class="bi bi-receipt-cutoff" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                            <p>Select a package to see your booking summary</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Start building invoice content
+                let invoiceHTML = '';
+                
+                // Package info (per person)
+                const packageTotal = packagePrice * guestCount;
+                invoiceHTML += `
+                    <div class="invoice-item">
+                        <span class="package-name">${packageName} (${guestCount} guest${guestCount > 1 ? 's' : ''})</span>
+                        <span>€${packageTotal.toFixed(2)}</span>
+                    </div>
+                    <div class="invoice-item" style="color: #6c757d; font-size: 0.9rem;">
+                        <span>• €${packagePrice.toFixed(2)} per person</span>
+                        <span></span>
+                    </div>
+                `;
+                
+                // Dates
+                if (checkInDate && checkOutDate) {
+                    const checkInFormatted = formatDate(checkInDate);
+                    const checkOutFormatted = formatDate(checkOutDate);
+                    invoiceHTML += `
+                        <div class="invoice-item">
+                            <span>Dates: ${checkInFormatted} - ${checkOutFormatted}</span>
+                            <span></span>
+                        </div>
+                    `;
+                }
+                
+                // Extra options
+                let extrasTotal = 0;
+                
+                if (airportCount > 0) {
+                    const airportPrice = 40 * airportCount;
+                    extrasTotal += airportPrice;
+                    invoiceHTML += `
+                        <div class="invoice-item">
+                            <span class="extra-name">+ Airport Shuttle (${airportCount} guest${airportCount > 1 ? 's' : ''})</span>
+                            <span>€${airportPrice.toFixed(2)}</span>
+                        </div>
+                    `;
+                }
+                
+                if (snapCount > 0) {
+                    const snapPrice = 50 * snapCount;
+                    extrasTotal += snapPrice;
+                    invoiceHTML += `
+                        <div class="invoice-item">
+                            <span class="extra-name">+ Snap Your Story (${snapCount} guest${snapCount > 1 ? 's' : ''})</span>
+                            <span>€${snapPrice.toFixed(2)}</span>
+                        </div>
+                    `;
+                }
+                
+                if (berberCount > 0) {
+                    const berberPrice = 30 * berberCount;
+                    extrasTotal += berberPrice;
+                    invoiceHTML += `
+                        <div class="invoice-item">
+                            <span class="extra-name">+ Berber Experience (${berberCount} guest${berberCount > 1 ? 's' : ''})</span>
+                            <span>€${berberPrice.toFixed(2)}</span>
+                        </div>
+                    `;
+                }
+                
+                // Calculate total
+                const total = packageTotal + extrasTotal;
+                
+                // Total section
+                invoiceHTML += `
+                    <div class="invoice-item invoice-total">
+                        <span>Total Amount</span>
+                        <span>€${total.toFixed(2)}</span>
+                    </div>
+                `;
+                
+                // Update invoice content
+                document.getElementById('invoiceContent').innerHTML = invoiceHTML;
+            }
+            
+            // Helper function to format dates
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString('en-US', options);
+            }
+            
+            // Form submission
+            const form = document.getElementById('bookingForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simple validation
+                if (!selectedPackageInput.value) {
+                    alert('Please select a package');
+                    return;
+                }
+                
+                // In a real application, you would send this data to a server
+                alert('Booking submitted successfully! We will contact you shortly.');
+                form.reset();
+                
+                // Reset UI
+                packageCards.forEach(c => c.classList.remove('selected'));
+                document.getElementById('invoiceContent').innerHTML = `
+                    <div class="no-selection">
+                        <i class="bi bi-receipt-cutoff" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                        <p>Select a package to see your booking summary</p>
+                    </div>
+                `;
+            });
         });
-    }
-
-    function updateInvoice() {
-      let total = 0;
-      invoiceItemsEl.innerHTML = ''; // Clear previous items
-
-      const guests = parseInt(mainGuestsInput.value || 1);
-
-      // 1. Base Pack
-      const packSelect = document.getElementById('pack');
-      const selectedPack = packSelect.options[packSelect.selectedIndex];
-      const packValue = parseInt(selectedPack.value || 0);
-      
-      if (packValue > 0) {
-        const packName = selectedPack.dataset.name;
-        const packTotal = packValue * guests;
-        total += packTotal;
-        addInvoiceItem(`${packName} (x${guests} guests)`, packTotal);
-      }
-
-      // 2. Extra Options
-      activities.forEach(id => {
-        const checkbox = document.getElementById(id);
-        if (checkbox.checked) {
-          const activityGuestsInput = document.getElementById(id + '-guests');
-          const pricePerPerson = parseInt(checkbox.dataset.price);
-          const activityName = checkbox.dataset.name;
-          const numberOfParticipants = parseInt(activityGuestsInput.value) || 1;
-
-          const extraTotal = pricePerPerson * numberOfParticipants;
-          total += extraTotal;
-          addInvoiceItem(`${activityName} (x${numberOfParticipants})`, extraTotal);
-        }
-      });
-
-      // 3. Update UI
-      if (total > 0) {
-        invoicePlaceholder.classList.add('d-none');
-        invoiceContent.classList.remove('d-none');
-        invoiceTotalEl.textContent = total + '€';
-      } else {
-        invoicePlaceholder.classList.remove('d-none');
-        invoiceContent.classList.add('d-none');
-      }
-    }
-    
-    function addInvoiceItem(name, price) {
-        const li = document.createElement('li');
-        li.className = 'list-group-item d-flex justify-content-between align-items-center px-0';
-        li.innerHTML = `<span class="item-name">${name}</span><span class="item-price">${price}€</span>`;
-        invoiceItemsEl.appendChild(li);
-    }
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (parseInt(document.getElementById('pack').value || 0) === 0) {
-          alert('Please select a package before confirming.');
-          return;
-      }
-      alert('✅ Booking submitted successfully!');
-      form.reset();
-      activities.forEach(toggleActivityInput); // Hide all activity inputs
-      updateInvoice(); // Reset the invoice
-    });
-    
-    // Initial setup on page load
-    updateActivityMaxGuests();
-    updateInvoice();
-  </script>
+    </script>
 </body>
 </html>
