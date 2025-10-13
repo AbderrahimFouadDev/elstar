@@ -115,6 +115,13 @@
             padding: 8px 0;
             border-bottom: 1px dashed #e9ecef;
         }
+        .invoice-sub-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0 6px 20px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
         .invoice-total {
             font-weight: 700;
             font-size: 1.2rem;
@@ -162,6 +169,12 @@
             color: #6c757d;
             margin-top: 5px;
         }
+        .package-details {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -190,7 +203,7 @@
                                 <label class="form-label">Select Package <span class="text-danger">*</span></label>
                                 <div class="row">
                                     <div class="col-md-4 mb-3">
-                                        <div class="package-card p-3 rounded h-100" data-package="7" data-price="850" data-name="7 Nights Package" data-nights="7">
+                                        <div class="package-card p-3 rounded h-100" data-package="7" data-price="850" data-name="7 Nights Package" data-nights="7" data-description="7 nights accommodation with daily breakfast and free Wi-Fi">
                                             <h5 class="mb-2">7 Nights</h5>
                                             <p class="mb-1">8 nights stay</p>
                                             <div class="price-tag">€850</div>
@@ -198,7 +211,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <div class="package-card p-3 rounded h-100" data-package="10" data-price="950" data-name="10 Nights Package" data-nights="10">
+                                        <div class="package-card p-3 rounded h-100" data-package="10" data-price="950" data-name="10 Nights Package" data-nights="10" data-description="10 nights accommodation with daily breakfast, free Wi-Fi, and one guided city tour">
                                             <h5 class="mb-2">10 Nights</h5>
                                             <p class="mb-1">11 nights stay</p>
                                             <div class="price-tag">€950</div>
@@ -206,7 +219,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <div class="package-card p-3 rounded h-100" data-package="15" data-price="1200" data-name="15 Nights Package" data-nights="15">
+                                        <div class="package-card p-3 rounded h-100" data-package="15" data-price="1200" data-name="15 Nights Package" data-nights="15" data-description="15 nights accommodation with daily breakfast, free Wi-Fi, two guided tours, and airport pickup">
                                             <h5 class="mb-2">15 Nights</h5>
                                             <p class="mb-1">16 nights stay</p>
                                             <div class="price-tag">€1200</div>
@@ -218,6 +231,7 @@
                                 <input type="hidden" id="selectedPackageName">
                                 <input type="hidden" id="selectedPackagePrice">
                                 <input type="hidden" id="selectedPackageNights">
+                                <input type="hidden" id="selectedPackageDescription">
                             </div>
                             
                             <!-- Dates -->
@@ -359,6 +373,7 @@
             const selectedPackageNameInput = document.getElementById('selectedPackageName');
             const selectedPackagePriceInput = document.getElementById('selectedPackagePrice');
             const selectedPackageNightsInput = document.getElementById('selectedPackageNights');
+            const selectedPackageDescriptionInput = document.getElementById('selectedPackageDescription');
             
             packageCards.forEach(card => {
                 card.addEventListener('click', function() {
@@ -371,6 +386,7 @@
                     selectedPackageNameInput.value = this.getAttribute('data-name');
                     selectedPackagePriceInput.value = this.getAttribute('data-price');
                     selectedPackageNightsInput.value = this.getAttribute('data-nights');
+                    selectedPackageDescriptionInput.value = this.getAttribute('data-description');
                     updateInvoice();
                     calculateCheckOut(); // Recalculate check-out when package changes
                 });
@@ -505,6 +521,7 @@
             function updateInvoice() {
                 const packageName = selectedPackageNameInput.value;
                 const packagePrice = parseFloat(selectedPackagePriceInput.value);
+                const packageDescription = selectedPackageDescriptionInput.value;
                 const guestCount = parseInt(guestInput.value);
                 const checkInDate = checkIn.value;
                 const checkOutDate = checkOut.value;
@@ -528,16 +545,33 @@
                 // Start building invoice content
                 let invoiceHTML = '';
                 
-                // Package info (per person)
+                // Package info with detailed breakdown
                 const packageTotal = packagePrice * guestCount;
                 invoiceHTML += `
                     <div class="invoice-item">
-                        <span class="package-name">${packageName} (${guestCount} guest${guestCount > 1 ? 's' : ''})</span>
+                        <span class="package-name">${packageName}</span>
                         <span>€${packageTotal.toFixed(2)}</span>
                     </div>
-                    <div class="invoice-item" style="color: #6c757d; font-size: 0.9rem;">
-                        <span>• €${packagePrice.toFixed(2)} per person</span>
-                        <span></span>
+                `;
+                
+                // Package details section
+                invoiceHTML += `
+                    <div class="package-details">
+                        <div class="invoice-sub-item">
+                            <span>• ${packageDescription}</span>
+                        </div>
+                        <div class="invoice-sub-item">
+                            <span>Price per person:</span>
+                            <span>€${packagePrice.toFixed(2)}</span>
+                        </div>
+                        <div class="invoice-sub-item">
+                            <span>Number of guests:</span>
+                            <span>${guestCount}</span>
+                        </div>
+                        <div class="invoice-sub-item">
+                            <span>Package total:</span>
+                            <span>€${packageTotal.toFixed(2)}</span>
+                        </div>
                     </div>
                 `;
                 
@@ -547,7 +581,15 @@
                     const checkOutFormatted = formatDate(checkOutDate);
                     invoiceHTML += `
                         <div class="invoice-item">
-                            <span>Dates: ${checkInFormatted} - ${checkOutFormatted}</span>
+                            <span>Dates:</span>
+                            <span></span>
+                        </div>
+                        <div class="invoice-sub-item">
+                            <span>Check-in: ${checkInFormatted}</span>
+                            <span></span>
+                        </div>
+                        <div class="invoice-sub-item">
+                            <span>Check-out: ${checkOutFormatted}</span>
                             <span></span>
                         </div>
                     `;
@@ -555,14 +597,20 @@
                 
                 // Extra options
                 let extrasTotal = 0;
+                let hasExtras = false;
                 
                 if (airportCount > 0) {
                     const airportPrice = 40 * airportCount;
                     extrasTotal += airportPrice;
+                    hasExtras = true;
                     invoiceHTML += `
                         <div class="invoice-item">
-                            <span class="extra-name">+ Airport Shuttle (${airportCount} guest${airportCount > 1 ? 's' : ''})</span>
+                            <span class="extra-name">Airport Shuttle</span>
                             <span>€${airportPrice.toFixed(2)}</span>
+                        </div>
+                        <div class="invoice-sub-item">
+                            <span>• ${airportCount} guest${airportCount > 1 ? 's' : ''} @ €40 each</span>
+                            <span></span>
                         </div>
                     `;
                 }
@@ -570,10 +618,15 @@
                 if (snapCount > 0) {
                     const snapPrice = 50 * snapCount;
                     extrasTotal += snapPrice;
+                    hasExtras = true;
                     invoiceHTML += `
                         <div class="invoice-item">
-                            <span class="extra-name">+ Snap Your Story (${snapCount} guest${snapCount > 1 ? 's' : ''})</span>
+                            <span class="extra-name">Snap Your Story</span>
                             <span>€${snapPrice.toFixed(2)}</span>
+                        </div>
+                        <div class="invoice-sub-item">
+                            <span>• ${snapCount} guest${snapCount > 1 ? 's' : ''} @ €50 each</span>
+                            <span></span>
                         </div>
                     `;
                 }
@@ -581,10 +634,15 @@
                 if (berberCount > 0) {
                     const berberPrice = 30 * berberCount;
                     extrasTotal += berberPrice;
+                    hasExtras = true;
                     invoiceHTML += `
                         <div class="invoice-item">
-                            <span class="extra-name">+ Berber Experience (${berberCount} guest${berberCount > 1 ? 's' : ''})</span>
+                            <span class="extra-name">Berber Experience</span>
                             <span>€${berberPrice.toFixed(2)}</span>
+                        </div>
+                        <div class="invoice-sub-item">
+                            <span>• ${berberCount} guest${berberCount > 1 ? 's' : ''} @ €30 each</span>
+                            <span></span>
                         </div>
                     `;
                 }
@@ -645,6 +703,7 @@
                 const snapCount = document.getElementById('snapCount').value;
                 const berberCount = document.getElementById('berberCount').value;
                 const message = document.getElementById('message').value.trim();
+                const packageDescription = selectedPackageDescriptionInput.value;
                 
                 // Format dates for message
                 const checkInFormatted = checkInDate ? new Date(checkInDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Not selected';
@@ -665,6 +724,7 @@
                 whatsappMessage += `*Phone:* ${phone}\n\n`;
                 whatsappMessage += `*Booking Details:*\n`;
                 whatsappMessage += `- Package: ${packageName}\n`;
+                whatsappMessage += `- Description: ${packageDescription}\n`;
                 whatsappMessage += `- Guests: ${guestCount}\n`;
                 whatsappMessage += `- Check-in: ${checkInFormatted}\n`;
                 whatsappMessage += `- Check-out: ${checkOutFormatted}\n\n`;
