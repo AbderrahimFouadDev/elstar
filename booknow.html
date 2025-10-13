@@ -143,6 +143,20 @@
             color: #6c757d;
             margin-top: 5px;
         }
+        .whatsapp-btn {
+            background: #25D366;
+            border: none;
+            padding: 12px 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: scale(1.02);
+        }
+        .whatsapp-btn i {
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
@@ -292,7 +306,9 @@
                             
                             <!-- Submit Button -->
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary btn-lg">Book Now</button>
+                                <button type="button" id="whatsappBtn" class="btn whatsapp-btn btn-lg">
+                                    <i class="bi bi-whatsapp"></i> Book via WhatsApp
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -327,6 +343,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Hostel WhatsApp number (replace with actual number)
+            const WHATSAPP_NUMBER = '+212774476707'; // Include country code without +
+            
             // Package selection
             const packageCards = document.querySelectorAll('.package-card');
             const selectedPackageInput = document.getElementById('selectedPackage');
@@ -551,29 +570,82 @@
                 return new Date(dateString).toLocaleDateString('en-US', options);
             }
             
-            // Form submission
-            const form = document.getElementById('bookingForm');
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
+            // WhatsApp booking function
+            document.getElementById('whatsappBtn').addEventListener('click', function() {
+                // Validation
+                const fullName = document.getElementById('fullName').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const packageName = selectedPackageNameInput.value;
                 
-                // Simple validation
-                if (!selectedPackageInput.value) {
+                if (!fullName) {
+                    alert('Please enter your full name');
+                    return;
+                }
+                
+                if (!phone) {
+                    alert('Please enter your phone number');
+                    return;
+                }
+                
+                if (!packageName) {
                     alert('Please select a package');
                     return;
                 }
                 
-                // In a real application, you would send this data to a server
-                alert('Booking submitted successfully! We will contact you shortly.');
-                form.reset();
+                // Get all form data
+                const guestCount = document.getElementById('guestCount').value;
+                const checkIn = document.getElementById('checkIn').value;
+                const checkOut = document.getElementById('checkOut').value;
+                const airportCount = document.getElementById('airportCount').value;
+                const snapCount = document.getElementById('snapCount').value;
+                const berberCount = document.getElementById('berberCount').value;
+                const message = document.getElementById('message').value.trim();
                 
-                // Reset UI
-                packageCards.forEach(c => c.classList.remove('selected'));
-                document.getElementById('invoiceContent').innerHTML = `
-                    <div class="no-selection">
-                        <i class="bi bi-receipt-cutoff" style="font-size: 2rem; margin-bottom: 15px;"></i>
-                        <p>Select a package to see your booking summary</p>
-                    </div>
-                `;
+                // Format dates for message
+                const checkInFormatted = checkIn ? new Date(checkIn).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Not selected';
+                const checkOutFormatted = checkOut ? new Date(checkOut).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Not selected';
+                
+                // Calculate totals
+                const packagePrice = parseFloat(selectedPackagePriceInput.value);
+                const packageTotal = packagePrice * guestCount;
+                const airportTotal = 40 * airportCount;
+                const snapTotal = 50 * snapCount;
+                const berberTotal = 30 * berberCount;
+                const extrasTotal = airportTotal + snapTotal + berberTotal;
+                const grandTotal = packageTotal + extrasTotal;
+                
+                // Build WhatsApp message
+                let whatsappMessage = `*NEW HOSTEL BOOKING REQUEST*\n\n`;
+                whatsappMessage += `*Full Name:* ${fullName}\n`;
+                whatsappMessage += `*Phone:* ${phone}\n\n`;
+                whatsappMessage += `*Booking Details:*\n`;
+                whatsappMessage += `- Package: ${packageName}\n`;
+                whatsappMessage += `- Guests: ${guestCount}\n`;
+                whatsappMessage += `- Check-in: ${checkInFormatted}\n`;
+                whatsappMessage += `- Check-out: ${checkOutFormatted}\n\n`;
+                
+                if (airportCount > 0 || snapCount > 0 || berberCount > 0) {
+                    whatsappMessage += `*Extra Options:*\n`;
+                    if (airportCount > 0) whatsappMessage += `- Airport Shuttle (${airportCount} guests): €${airportTotal.toFixed(2)}\n`;
+                    if (snapCount > 0) whatsappMessage += `- Snap Your Story (${snapCount} guests): €${snapTotal.toFixed(2)}\n`;
+                    if (berberCount > 0) whatsappMessage += `- Berber Experience (${berberCount} guests): €${berberTotal.toFixed(2)}\n`;
+                    whatsappMessage += `\n`;
+                }
+                
+                whatsappMessage += `*Total Amount:* €${grandTotal.toFixed(2)}\n\n`;
+                
+                if (message) {
+                    whatsappMessage += `*Message:* ${message}\n\n`;
+                }
+                
+                whatsappMessage += `Please confirm this booking. Thank you!`;
+                
+                // URL encode the message
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+                const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+                
+                // Open WhatsApp in new tab
+                window.open(whatsappUrl, '_blank');
             });
         });
     </script>
