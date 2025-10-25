@@ -171,14 +171,6 @@
 
 							<form id="whatsapp-form" class="contact-form">
 
-    <div class="contact-form-success alert alert-success d-none mt-4">
-        <strong>Success!</strong> Your message has been sent to us.
-    </div>
-    <div class="contact-form-error alert alert-danger d-none mt-4">
-        <strong>Error!</strong> There was an error sending your message.
-        <span class="mail-error-message text-1 d-block"></span>
-    </div>
-
     <div class="row">
         <div class="form-group col-lg-6">
             <label class="form-label font-weight-bold text-uppercase text-dark mb-1 text-2">Your Name *</label>
@@ -204,7 +196,7 @@
     <div class="row">
         <div class="form-group col">
             <button type="submit" class="text-4 custom-header-top-btn-style-1 btn btn-secondary font-weight-bold px-4 px-sm-5 py-3">
-                Send via WhatsApp
+                Send 
             </button>
         </div>
     </div>
@@ -216,9 +208,6 @@ document.getElementById('whatsapp-form').addEventListener('submit', function(eve
     // Kangolo l-form matsubmitich b l-tariqa l-3adia
     event.preventDefault();
 
-    // =================================================================
-    // !!! IMPORTANT: BEDDEL HAD NMRA B NMRA DYALK (BLA 0, BDA B 212) !!!
-    // =================================================================
     const recipientNumber = '212774476707'; // Matalan: 212612345678
 
     // Kanjbdo l-ma3lomat mn l-form
