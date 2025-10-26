@@ -18331,3 +18331,9 @@ html.gap-outside .pin-wrapper .sticky-wrapper.sticky-effect-active .sticky-body 
 		271px 16px 0 #000, 273px 16px 0 #000;
 	}
 }
+.mapouter{display:table; width: 100%;}
+      /* Changed width from 1080px to 100% */
+.gmap_canvas{overflow:hidden;position:relative;height:400px;width:100%;background:#fff;}
+
+.gmap_canvas iframe{position:relative !important;z-index:2 !important;}
+.gmap_canvas a{color:#fff !important;position:absolute !important;top:0 !important;left:0 !important;z-index:0 !important;}
