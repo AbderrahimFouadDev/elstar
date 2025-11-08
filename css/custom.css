@@ -243,16 +243,16 @@
         border-bottom: 1px solid #dee2e6;
     }
 
-    /* Put "X NIGHTS" label under "INCLUDES" heading on mobile */
+    /* Put "X NIGHTS" label ABOVE "INCLUDES" heading on mobile */
     .col-12.col-lg-2.order-3 {
-        order: 2 !important;
+        order: 1 !important;
         margin-top: 0 !important;
         margin-bottom: 20px !important;
     }
 
-    /* INCLUDES section stays first */
+    /* INCLUDES section appears second (after X NIGHTS) */
     .col-12.col-lg-6.order-1 {
-        order: 1 !important;
+        order: 2 !important;
     }
 
     /* Price image stays last */
@@ -260,25 +260,32 @@
         order: 3 !important;
     }
 
-    /* Fix the "5 guests" warning text on mobile */
+    /* Fix the "5 guests" warning text on mobile - prevent overflow */
     .text-overflow-center {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        gap: 15px !important;
+        gap: 10px !important;
         text-align: center !important;
+        max-width: 100% !important;
+        overflow-wrap: break-word !important;
+        word-wrap: break-word !important;
     }
 
     .text-overflow-center svg {
-        width: 40px !important;
-        height: 40px !important;
+        width: 35px !important;
+        height: 35px !important;
+        flex-shrink: 0 !important;
     }
 
-    /* Center the warning text */
+    /* Center the warning text and prevent overflow */
     h5.text-overflow-center {
-        font-size: 1.1rem !important;
-        line-height: 1.6 !important;
-        padding: 0 20px !important;
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+        padding: 0 15px !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        word-break: break-word !important;
     }
 }
 
