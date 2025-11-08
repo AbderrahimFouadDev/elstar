@@ -243,6 +243,12 @@
         border-bottom: 1px solid #dee2e6;
     }
 
+    /* Make the row a flex container so order classes work */
+    .custom-projects-1 > .row {
+        display: flex !important;
+        flex-wrap: wrap !important;
+    }
+
     /* Put "X NIGHTS" label ABOVE "INCLUDES" heading on mobile */
     .col-12.col-lg-2.order-3 {
         order: 1 !important;
@@ -286,6 +292,18 @@
         margin: 0 !important;
         max-width: 100% !important;
         word-break: break-word !important;
+    }
+
+    /* Home page - Put images ABOVE "OUR ..." headings on mobile */
+    .col-12.col-sm-10.col-lg-3,
+    .col-12.col-sm-10.col-lg-3.ps-sm-5 {
+        order: 1 !important;
+        margin-bottom: 30px !important;
+    }
+
+    .col-12.col-lg-8.mb-5,
+    .col-12.col-lg-8.offset-lg-1 {
+        order: 2 !important;
     }
 }
 
