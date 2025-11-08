@@ -1,0 +1,254 @@
+/* Custom Responsive CSS for ElStar Hostel */
+
+/* ==================================
+   Mobile-Specific Responsive Fixes
+   ================================== */
+
+/* Fix header on mobile */
+@media (max-width: 991px) {
+    .header-body {
+        position: relative !important;
+    }
+
+    .header-nav-main nav {
+        background-color: #fff;
+        padding: 20px;
+    }
+
+    .custom-header-top-btn-style-1 {
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+}
+
+/* Gallery responsive adjustments */
+@media (max-width: 767px) {
+    .gallery-item {
+        margin-bottom: 15px;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Welcome section image */
+    .welcome-image-col {
+        min-height: 300px;
+        background-size: cover !important;
+        background-position: center !important;
+    }
+}
+
+/* Package cards mobile */
+@media (max-width: 575px) {
+    .package-card {
+        margin-bottom: 15px;
+    }
+
+    .price-tag {
+        font-size: 1.5rem;
+    }
+}
+
+/* Booking form mobile fixes */
+@media (max-width: 991px) {
+    .invoice-card {
+        position: relative !important;
+        top: auto !important;
+        margin-top: 30px;
+    }
+}
+
+/* Text sizing for mobile */
+@media (max-width: 767px) {
+    h1 {
+        font-size: 1.8rem !important;
+    }
+
+    h2 {
+        font-size: 1.5rem !important;
+    }
+
+    h3 {
+        font-size: 1.3rem !important;
+    }
+
+    .text-10 {
+        font-size: 1.5rem !important;
+    }
+
+    .text-resp-100 {
+        font-size: 2rem !important;
+    }
+}
+
+/* Package section responsive */
+@media (max-width: 991px) {
+    .rotate-r-90 {
+        transform: none !important;
+        position: relative !important;
+        margin-top: 0 !important;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .border-end {
+        border-right: none !important;
+        border-bottom: 1px solid #dee2e6;
+    }
+}
+
+/* Images on mobile - ensure proper spacing */
+@media (max-width: 767px) {
+    img.img-fluid {
+        margin-bottom: 20px;
+    }
+
+    .max-width-custom-1 img {
+        max-width: 80% !important;
+        margin: 0 auto;
+        display: block;
+    }
+}
+
+/* Contact section mobile */
+@media (max-width: 767px) {
+    .feature-box {
+        margin-bottom: 30px;
+    }
+}
+
+/* Logo section mobile */
+@media (max-width: 575px) {
+    .row.align-items-center.text-center.my-5 img {
+        max-width: 80px !important;
+    }
+}
+
+/* Spacing adjustments for mobile */
+@media (max-width: 767px) {
+    .py-5 {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+
+    .my-5 {
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
+    }
+
+    .mt-5,
+    .my-5 {
+        margin-top: 2rem !important;
+    }
+
+    .mb-5,
+    .my-5 {
+        margin-bottom: 2rem !important;
+    }
+}
+
+/* Ensure buttons are full width on mobile */
+@media (max-width: 575px) {
+    .btn-modern,
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+/* Fix parallax background on mobile */
+@media (max-width: 767px) {
+    .section-parallax {
+        background-attachment: scroll !important;
+    }
+
+    .welcome-section {
+        background-attachment: scroll !important;
+    }
+}
+
+/* Invoice/Booking summary on mobile */
+@media (max-width: 991px) {
+    .sticky-top {
+        position: relative !important;
+    }
+}
+
+/* Package extra options on mobile */
+@media (max-width: 575px) {
+    .guest-counter {
+        width: 100%;
+        justify-content: center;
+        margin: 10px 0;
+    }
+
+    .extra-option {
+        flex-direction: column;
+    }
+
+    .extra-option .d-flex {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+}
+
+/* Room gallery mobile fixes */
+@media (max-width: 767px) {
+    .d-flex.flex-column.gap-4 {
+        gap: 1rem !important;
+    }
+}
+
+/* Activities page mobile */
+@media (max-width: 991px) {
+    .order-1 {
+        order: 1 !important;
+    }
+
+    .order-2 {
+        order: 2 !important;
+    }
+}
+
+/* Testimonials on mobile */
+@media (max-width: 767px) {
+    .testimonial-author img {
+        max-width: 80px;
+    }
+
+    .testimonial blockquote p {
+        font-size: 0.95rem;
+    }
+}
+
+/* Footer mobile */
+@media (max-width: 767px) {
+    footer .row {
+        text-align: center;
+    }
+
+    footer a {
+        display: block;
+        margin: 10px 0;
+    }
+}
+
+/* Prevent horizontal scroll on mobile */
+@media (max-width: 767px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .container {
+        overflow-x: hidden;
+    }
+
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
