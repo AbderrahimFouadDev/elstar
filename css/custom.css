@@ -166,16 +166,6 @@
 
 /* ========================================== */
 
-/* Rooms Page - Mobile Layout: Title → Image → Description */
-@media (max-width: 991px) {
-    /* Make content columns flexbox on mobile to enable order classes */
-    .col-12.col-lg-6.text-center.order-lg-1,
-    .col-12.col-lg-6.text-center.order-lg-2 {
-        display: flex !important;
-        flex-direction: column !important;
-    }
-}
-
 /* Gallery responsive adjustments */
 @media (max-width: 767px) {
     .gallery-item {
