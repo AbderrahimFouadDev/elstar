@@ -166,6 +166,27 @@
 
 /* ========================================== */
 
+/* Rooms Page - Image Below Text on Mobile */
+@media (max-width: 991px) {
+    /* PALM ROOM - Force image below text on mobile */
+    .max-width-custom-1 {
+        order: 2 !important;
+        margin-top: 30px !important;
+    }
+
+    /* Ensure text content appears first */
+    .max-width-custom-1 + .col-12.col-lg-6.text-center,
+    .col-12.col-lg-6.text-center {
+        order: 1 !important;
+    }
+
+    /* SUNNY ROOM - Ensure correct order */
+    .col-12.col-lg-5.max-width-custom-1 {
+        order: 2 !important;
+        margin-top: 30px !important;
+    }
+}
+
 /* Gallery responsive adjustments */
 @media (max-width: 767px) {
     .gallery-item {
