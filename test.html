@@ -9,12 +9,61 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome for burger icon -->
+  <script src="https://kit.fontawesome.com/792f631209.js" crossorigin="anonymous"></script>
+  <!-- Custom CSS for burger menu -->
+  <link rel="stylesheet" href="css/custom.css">
 
   <style>
     body {
       background-color: #f8f9fa;
       font-family: 'Poppins', sans-serif;
+      padding-top: 120px;
     }
+
+    /* Header styling */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1030;
+      background: white;
+      border-bottom: 6px solid #4d0d0a;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .site-header .header-logo img {
+      max-width: 123px;
+      height: auto;
+    }
+
+    .site-header .nav-link {
+      color: #333 !important;
+      font-weight: 600;
+      padding: 10px 15px;
+      transition: color 0.3s ease;
+    }
+
+    .site-header .nav-link:hover,
+    .site-header .nav-link.active {
+      color: #cb1130 !important;
+    }
+
+    .site-header .btn-book {
+      background: #cb1130;
+      color: white;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .site-header .btn-book:hover {
+      background: #a00e26;
+      transform: scale(1.05);
+    }
+
     .main-container {
       max-width: 1100px;
       margin: 40px auto;
@@ -48,6 +97,51 @@
   </style>
 </head>
 <body>
+  <!-- Navigation Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="row align-items-center py-3">
+        <div class="col-6 col-lg-3">
+          <div class="header-logo">
+            <a href="index.html">
+              <img src="img/loogo.png" class="img-fluid" alt="ElStar Hostel" />
+            </a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-9 d-flex justify-content-end align-items-center">
+          <div class="header-nav header-nav-links d-none d-lg-block">
+            <nav class="collapse show">
+              <ul class="nav nav-pills" id="mainNav">
+                <li><a href="thehouse.html" class="nav-link">THE HOUSE</a></li>
+                <li><a href="packages.html" class="nav-link">PACKAGES</a></li>
+                <li><a href="rooms.html" class="nav-link">ROOMS</a></li>
+                <li><a href="activities.html" class="nav-link">ACTIVITIES</a></li>
+                <li><a href="contactus.html" class="nav-link">CONTACT US</a></li>
+              </ul>
+            </nav>
+          </div>
+          <a href="booknow.html" class="btn btn-book d-none d-lg-inline-block ms-3">BOOK NOW</a>
+          <button class="btn header-btn-collapse-nav d-lg-none" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="col-12 d-lg-none">
+          <div class="header-nav-main">
+            <nav class="collapse">
+              <ul class="nav nav-pills" id="mainNavMobile">
+                <li><a href="thehouse.html" class="nav-link">THE HOUSE</a></li>
+                <li><a href="packages.html" class="nav-link">PACKAGES</a></li>
+                <li><a href="rooms.html" class="nav-link">ROOMS</a></li>
+                <li><a href="activities.html" class="nav-link">ACTIVITIES</a></li>
+                <li><a href="contactus.html" class="nav-link">CONTACT US</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
   <div class="container main-container">
     <div class="row g-4">
