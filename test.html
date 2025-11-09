@@ -101,43 +101,33 @@
   <header class="site-header">
     <div class="container">
       <div class="row align-items-center py-3">
-        <div class="col-6 col-lg-3">
+        <div class="col-auto">
           <div class="header-logo">
             <a href="index.html">
               <img src="img/loogo.png" class="img-fluid" alt="ElStar Hostel" />
             </a>
           </div>
         </div>
-        <div class="col-6 col-lg-9 d-flex justify-content-end align-items-center">
-          <div class="header-nav header-nav-links d-none d-lg-block">
-            <nav class="collapse show">
-              <ul class="nav nav-pills" id="mainNav">
-                <li><a href="thehouse.html" class="nav-link">THE HOUSE</a></li>
-                <li><a href="packages.html" class="nav-link">PACKAGES</a></li>
-                <li><a href="rooms.html" class="nav-link">ROOMS</a></li>
-                <li><a href="activities.html" class="nav-link">ACTIVITIES</a></li>
-                <li><a href="contactus.html" class="nav-link">CONTACT US</a></li>
-              </ul>
-            </nav>
+        <div class="col d-flex justify-content-end align-items-center">
+          <div class="header-nav header-nav-links">
+            <div class="header-nav-main">
+              <nav class="collapse">
+                <ul class="nav nav-pills" id="mainNav">
+                  <li><a href="thehouse.html" class="nav-link">THE HOUSE</a></li>
+                  <li><a href="packages.html" class="nav-link">PACKAGES</a></li>
+                  <li><a href="rooms.html" class="nav-link">ROOMS</a></li>
+                  <li><a href="activities.html" class="nav-link">ACTIVITIES</a></li>
+                  <li><a href="contactus.html" class="nav-link">CONTACT US</a></li>
+                </ul>
+              </nav>
+            </div>
           </div>
-          <a href="booknow.html" class="btn btn-book d-none d-lg-inline-block ms-3">BOOK NOW</a>
-          <button class="btn header-btn-collapse-nav d-lg-none" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
+          <div class="d-none d-lg-block ms-3">
+            <a href="booknow.html" class="btn btn-book">BOOK NOW</a>
+          </div>
+          <button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
             <i class="fas fa-bars"></i>
           </button>
-        </div>
-        <!-- Mobile Menu -->
-        <div class="col-12 d-lg-none">
-          <div class="header-nav-main">
-            <nav class="collapse">
-              <ul class="nav nav-pills" id="mainNavMobile">
-                <li><a href="thehouse.html" class="nav-link">THE HOUSE</a></li>
-                <li><a href="packages.html" class="nav-link">PACKAGES</a></li>
-                <li><a href="rooms.html" class="nav-link">ROOMS</a></li>
-                <li><a href="activities.html" class="nav-link">ACTIVITIES</a></li>
-                <li><a href="contactus.html" class="nav-link">CONTACT US</a></li>
-              </ul>
-            </nav>
-          </div>
         </div>
       </div>
     </div>
