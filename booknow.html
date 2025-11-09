@@ -435,49 +435,49 @@
     </style>
 </head>
 <body>
-    <!-- Navigation Header -->
-    <header id="header" class="header-effect-shrink">
-        <div class="header-body header-body-bottom-border border-top-0" style="position: fixed; top: 0px; border-bottom: 6px solid #4d0d0a; background: white; width: 100%; z-index: 1030;">
-            <div class="header-container container">
-                <div class="header-row">
-                    <div class="header-column">
-                        <div class="header-row">
-                            <div class="header-logo">
-                                <a href="index.html">
-                                    <img src="img/loogo.png" class="img-fluid" width="123" height="32" alt="" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="header-column justify-content-end">
-                        <div class="header-row">
-                            <div class="header-nav header-nav-links">
-                                <div class="header-nav-main header-nav-main-text-capitalize header-nav-main-effect-2 header-nav-main-sub-effect-1">
-                                    <nav class="collapse">
-                                        <ul class="nav nav-pills" id="mainNav">
-                                            <li><a href="thehouse.html" class="nav-link">THE HOUSE</a></li>
-                                            <li><a href="packages.html" class="nav-link">PACKAGES</a></li>
-                                            <li><a href="rooms.html" class="nav-link">ROOMS</a></li>
-                                            <li><a href="activities.html" class="nav-link">ACTIVITIES</a></li>
-                                            <li><a href="contactus.html" class="nav-link">CONTACT US</a></li>
-                                        </ul>
-                                    </nav>
+    <div class="body">
+        <header id="header" class="header-effect-shrink" data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyChangeLogo': true, 'stickyStartAt': 30, 'stickyHeaderContainerHeight': 85}">
+            <div class="header-body header-body-bottom-border border-top-0" style="position: fixed; top: 0px;border-bottom: 6px solid #4d0d0a;">
+                <div class="header-container container">
+                    <div class="header-row">
+                        <div class="header-column">
+                            <div class="header-row">
+                                <div class="header-logo">
+                                    <a href="index.html">
+                                        <img src="img/loogo.png" class="img-fluid" width="123" height="32" alt="" />
+                                    </a>
                                 </div>
                             </div>
-                            <div class="header-column justify-content-end">
+                        </div>
+                        <div class="header-column justify-content-end">
+                            <div class="header-row">
+                                <div class="header-nav header-nav-links">
+                                    <div class="header-nav-main header-nav-main-text-capitalize header-nav-main-effect-2 header-nav-main-sub-effect-1">
+                                        <nav class="collapse">
+                                            <ul class="nav nav-pills" id="mainNav">
+                                                <li><a href="thehouse.html" class="nav-link">THE HOUSE</a></li>
+                                                <li><a href="packages.html" class="nav-link">PACKAGES</a></li>
+                                                <li><a href="rooms.html" class="nav-link">ROOMS</a></li>
+                                                <li><a href="activities.html" class="nav-link">ACTIVITIES</a></li>
+                                                <li><a href="contactus.html" class="nav-link">CONTACT US</a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                                <div class="header-column justify-content-end">
                                 <div class="header-row">
                                     <a href="booknow.html" class="custom-header-top-btn-style-1 btn btn-secondary font-weight-bold px-4 px-sm-5 py-3">BOOK NOW</a>
                                 </div>
                             </div>
-                            <button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
-                                <i class="fas fa-bars"></i>
-                            </button>
+                                <button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
+                                    <i class="fas fa-bars"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
 
     <div class="container py-4">
         <div class="header-bg text-center mb-4">
@@ -1022,5 +1022,6 @@
             });
         });
     </script>
+    </div><!-- End .body -->
 </body>
 </html>
