@@ -594,6 +594,51 @@ body {
     padding-top: 100px;
 }
 
+/* Mobile header fixes */
+@media (max-width: 991px) {
+    /* Ensure BOOK NOW button is completely hidden on mobile */
+    .site-header .btn-book {
+        display: none !important;
+    }
+
+    /* Prevent horizontal scrolling issues */
+    .site-header .container {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Adjust header row spacing on mobile */
+    .site-header .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    /* Ensure header stays fixed properly when scrolling */
+    .site-header {
+        position: fixed !important;
+        top: 0 !important;
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+
+    /* Reduce header padding on mobile for better space */
+    .site-header .py-3 {
+        padding-top: 0.75rem !important;
+        padding-bottom: 0.75rem !important;
+    }
+
+    /* Ensure logo doesn't overflow */
+    .site-header .header-logo {
+        max-width: 100px;
+    }
+
+    .site-header .header-logo img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
 /* ========================================== */
 /* FIX 3: Terms and Conditions - Fix first title on mobile */
 /* ========================================== */
