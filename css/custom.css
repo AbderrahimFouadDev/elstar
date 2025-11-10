@@ -545,6 +545,56 @@
 }
 
 /* ========================================== */
+/* Simple Bootstrap Burger Menu Styling */
+/* ========================================== */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    background: white;
+    border-bottom: 6px solid #4d0d0a;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.site-header .header-logo img {
+    max-width: 123px;
+    height: auto;
+}
+
+.site-header .nav-link {
+    color: #333 !important;
+    font-weight: 600;
+    padding: 10px 15px;
+    transition: color 0.3s ease;
+}
+
+.site-header .nav-link:hover,
+.site-header .nav-link.active {
+    color: #cb1130 !important;
+}
+
+.site-header .btn-book {
+    background: #cb1130;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.site-header .btn-book:hover {
+    background: #a00e26;
+    transform: scale(1.05);
+}
+
+/* Ensure body has padding for fixed header */
+body {
+    padding-top: 100px;
+}
+
+/* ========================================== */
 /* FIX 3: Terms and Conditions - Fix first title on mobile */
 /* ========================================== */
 @media (max-width: 991px) {

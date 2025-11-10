@@ -54,48 +54,51 @@
 	<body>
 
 		<div class="body">
-			<header id="header" class="header-effect-shrink" data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyChangeLogo': true, 'stickyStartAt': 30, 'stickyHeaderContainerHeight': 85}">
-				<div class="header-body header-body-bottom-border border-top-0" style="position: fixed; top: 0px;border-bottom: 6px solid #4d0d0a;">
-					<div class="header-container container">
-						<div class="header-row">
-							<div class="header-column">
-								<div class="header-row">
-									<div class="header-logo">
-										<a href="index.html">
-											<img src="img/loogo.png" class="img-fluid" width="123" height="32" alt="" />
-										</a>
-									</div>
-								</div>
-							</div>
-							<div class="header-column justify-content-end">
-								<div class="header-row">
-									<div class="header-nav header-nav-links">
-										<div class="header-nav-main header-nav-main-text-capitalize header-nav-main-effect-2 header-nav-main-sub-effect-1">
-											<nav class="collapse">
-												<ul class="nav nav-pills" id="mainNav">
-													<li><a href="thehouse.html" class="nav-link">THE HOUSE</a></li>
-													<li><a href="packages.html" class="nav-link">PACKAGES</a></li>
-													<li><a href="rooms.html" class="nav-link">ROOMS</a></li>
-													<li><a href="activities.html" class="nav-link active">ACTIVITIES</a></li>
-													<li><a href="contactus.html" class="nav-link">CONTACT US</a></li>
-												</ul>
-											</nav>
-										</div>
-									</div>
-									<div class="header-column justify-content-end">
-									<div class="header-row">
-										<a href="booknow.html" class="custom-header-top-btn-style-1 btn btn-secondary font-weight-bold px-4 px-sm-5 py-3">BOOK NOW</a>
-									</div>
-								</div>
-									<button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
-										<i class="fas fa-bars"></i>
-									</button>
-								</div>
-							</div>
+			<!-- Navigation Header -->
+		<header class="site-header">
+			<div class="container">
+				<div class="row align-items-center py-3">
+					<div class="col-6 col-lg-3">
+						<div class="header-logo">
+							<a href="index.html">
+								<img src="img/loogo.png" class="img-fluid" alt="ElStar Hostel" />
+							</a>
+						</div>
+					</div>
+					<div class="col-6 col-lg-9 d-flex justify-content-end align-items-center">
+						<div class="header-nav header-nav-links d-none d-lg-block">
+							<nav class="collapse show">
+								<ul class="nav nav-pills" id="mainNav">
+									<li><a href="thehouse.html" class="nav-link">THE HOUSE</a></li>
+									<li><a href="packages.html" class="nav-link">PACKAGES</a></li>
+									<li><a href="rooms.html" class="nav-link">ROOMS</a></li>
+									<li><a href="activities.html" class="nav-link">ACTIVITIES</a></li>
+									<li><a href="contactus.html" class="nav-link">CONTACT US</a></li>
+								</ul>
+							</nav>
+						</div>
+						<a href="booknow.html" class="btn btn-book d-none d-lg-inline-block ms-3">BOOK NOW</a>
+						<button class="btn header-btn-collapse-nav d-lg-none" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
+							<i class="fas fa-bars"></i>
+						</button>
+					</div>
+					<!-- Mobile Menu -->
+					<div class="col-12 d-lg-none">
+						<div class="header-nav-main">
+							<nav class="collapse">
+								<ul class="nav nav-pills" id="mainNavMobile">
+									<li><a href="thehouse.html" class="nav-link">THE HOUSE</a></li>
+									<li><a href="packages.html" class="nav-link">PACKAGES</a></li>
+									<li><a href="rooms.html" class="nav-link">ROOMS</a></li>
+									<li><a href="activities.html" class="nav-link">ACTIVITIES</a></li>
+									<li><a href="contactus.html" class="nav-link">CONTACT US</a></li>
+								</ul>
+							</nav>
 						</div>
 					</div>
 				</div>
-			</header>
+			</div>
+		</header>
 
 			<div role="main" class="main" style="background-image: url(img/pattern3.png);background-repeat: no-repeat;background-size: cover;background-position: center center;background-attachment: fixed;">
 
